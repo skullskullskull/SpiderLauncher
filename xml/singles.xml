@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<data>
+    <file tag="z_Example">
+    	<Name>Github (default browser)</Name>
+    	<Launcher>sensible-browser</Launcher>
+        <path>https://github.com</path>
+    </file>   
+
+    <file tag="z_Example">
+    	<Name>DuckDuckGo (firefox)</Name>
+    	<Launcher>firefox</Launcher>
+        <path>www.DuckDuckGo.com</path>
+    </file>   
+    <file tag="z_Example">
+       	<Name>Rhythmbox</Name>
+    	<Launcher>rhythmbox-client</Launcher>
+        <path>--play</path>
+    </file>     
+</data>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<data>
+    <directory tag="Touhou">
+    	<Launcher>bash</Launcher>
+    	<type>.sh</type>
+        <path>/home/Skull/Games/TOUHOU/.sh</path>
+    </directory>   
+
+    <directory tag="PS1">
+    	<Launcher>mednafen</Launcher>
+    	<type>.cue</type>
+        <path>/home/Skull/Roms/PS1</path>
+    </directory> 
+
+    <directory tag="PS1">
+    	<Launcher>mednafen</Launcher>
+    	<type>.m3u</type>
+        <path>/home/Skull/Roms/PS1_multi</path>
+    </directory> 
+
+    <directory tag="PS2">
+    	<Launcher>PCSX2 --nogui</Launcher>
+    	<type>.gz</type>
+        <path>/home/Skull/Roms/PS2</path>
+    </directory>      
+    
+    <directory tag="Gamecube">
+    	<Launcher>dolphin-emu-nogui</Launcher>
+    	<type>.gcm</type>
+        <path>/home/Skull/Roms/GameCube</path>
+    </directory>      
+
+    <directory tag="Saturn">
+    	<Launcher>mednafen</Launcher>
+    	<type>.cue</type>
+        <path>/home/Skull/Roms/Saturn</path>
+    </directory>      
+</data>
