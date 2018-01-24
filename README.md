@@ -5,6 +5,9 @@ Spider Launcher is a python script to launch other programs.
 
 Spider Launcher uses the Tkinter library for graphics. It reads from a sqlite database (.Spiderdb.db) and creates buttons in tabs to launch a *program* and a *parameter*. 
 
+Addionally, spiderLauncher will take a command line arguement, **--showall**, to show all database items. eg:
+> $ SpiderLauncher.py --showall
+
 .Spiderdb.db format:
 ```
 NAME		| LAUNCHER		| GAME				| TAGS
