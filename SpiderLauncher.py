@@ -3,10 +3,12 @@
 import sqlite3
 import tkinter as tk
 from tkinter import ttk
-import subprocess
+import subprocess, sys
+
+showAll=True if any(s.lower() == '--showall' for s in sys.argv) else False
 
 root = tk.Tk()
-root.title("Spider Launch")
+root.title("Spider Launcher")
 #root.minsize(500, 200)
 #root.geometry("370x300") #frame will fit to elements (like ttk.Notebook's size) otherwise. 
 
@@ -22,8 +24,10 @@ db = sqlite3.connect('.Spiderdb.db')
 c = db.cursor()
 c.execute('''select DISTINCT TAGS from SL ORDER BY LOWER(TAGS)''')
 
+if showAll:
+	listSys.append("All")
 for it in c:
-    listSys.append(it[0])
+	listSys.append(it[0])
 
 for num in listSys:
 	tab = tk.Frame(root)
@@ -40,8 +44,26 @@ def launchGame(launcher,game):
 	program=launcher.rstrip().split(" ") #deals with whitespace in launcher string (eg 'PCSX2 --nogui')
 	program.append(game)
 	subprocess.Popen(program)
-	
-for sys in range(0,len(listSys)): #sys is TAGS in database
+
+#ALL
+if showAll:
+	text = tk.Text(dynamic_buttons[0], wrap="none")
+	vsb = tk.Scrollbar(dynamic_buttons[0], orient="vertical", command=text.yview)
+	text.configure(yscrollcommand=vsb.set)
+	vsb.pack(side="right", fill="y")
+	text.pack(fill="both", expand=True)
+
+	c.execute('''select * from SL ORDER BY LOWER(NAME)''')
+	for it in c:
+		# reusing b for the 'next' button overwrites the command, unless we pass it as opt1 & opt2. 
+		b = tk.Button(root, text="%s - %s" % (it[0], it[3] ), command=lambda opt1=it[1],opt2=it[2]: launchGame(opt1,opt2), width=41)
+		text.window_create("end",padx=10, window=b)
+		text.insert("end", "\n")
+
+	text.configure(state="disabled") # to disable cursor in button text box
+
+#For each system (tag)
+for sys in range(1 if showAll else 0,len(listSys)): #sys is TAGS in database
 	text = tk.Text(dynamic_buttons[sys], wrap="none")
 	vsb = tk.Scrollbar(dynamic_buttons[sys], orient="vertical", command=text.yview)
 	text.configure(yscrollcommand=vsb.set)
@@ -50,7 +72,7 @@ for sys in range(0,len(listSys)): #sys is TAGS in database
 
 	c.execute('''select * from SL where TAGS=? ORDER BY LOWER(NAME)''', (listSys[sys],))
 	for it in c:
-		#b is the handle for the button. using b for the 'next' button overwrites the command, unless we pass it as opt1 & opt2. 
+		# reusing b for the 'next' button overwrites the command, unless we pass it as opt1 & opt2. 
 		b = tk.Button(root, text="%s" % it[0], command=lambda opt1=it[1],opt2=it[2]: launchGame(opt1,opt2), width=41)
 		text.window_create("end",padx=10, window=b)
 		text.insert("end", "\n")
